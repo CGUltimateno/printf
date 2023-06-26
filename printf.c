@@ -2,29 +2,29 @@
 
 /**
  * _printf - print.
- * @yes: the yes
+ * @format: the format
  *
  * Return: the number of chars
  */
 
-int _printf(const char *yes, ...)
+int _printf(const char *format, ...)
 {
     unsigned int i, length = 0;
     va_list args;
 
-    if (yes == NULL)
+    if (format == NULL)
         return (-1);
-    va_start(args, yes);
-    for (i = 0; yes[i]; i++)
+    va_start(args, format);
+    for (i = 0; format[i]; i++)
     {
-        if (yes[i] != '%')
+        if (format[i] != '%')
         {
-            length += print_char(yes[i]);
+            length += print_char(format[i]);
             continue;
         }
-        if (i++ == strlength(yes) - 1)
+        if (i++ == strlength(format) - 1)
             return (-1);
-        length += checker(yes[i], args);
+        length += checker(format[i], args);
     }
     va_end(args);
     return (length);
