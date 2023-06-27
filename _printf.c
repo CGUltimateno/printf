@@ -3,14 +3,14 @@
 void print_buffer(char buffer[], int *buff_ind);
 
 /**
- * _printf - printf function that produces output
- * @format: format specifier and the values to be printed
- * Return: printed chars.
+ * _printf - Printf function
+ * @format: format.
+ * Return: print chars.
  */
 int _printf(const char *format, ...)
 {
-    int i, printed = 0, printed_chars = 0;
-    int flags, width, precision, size, buff_ind = 0;
+    int i, print = 0, print_c = 0;
+    int f, width, precision, size, buff_ind = 0;
     va_list list;
     char buffer[BUFF_SIZE];
 
@@ -26,21 +26,22 @@ int _printf(const char *format, ...)
             buffer[buff_ind++] = format[i];
             if (buff_ind == BUFF_SIZE)
                 print_buffer(buffer, &buff_ind);
-            printed_chars++;
+            /* write(1, &format[i], 1);*/
+            print_c++;
         }
         else
         {
             print_buffer(buffer, &buff_ind);
-            flags = get_flags(format, &i);
+            f = get_f(format, &i);
             width = get_width(format, &i, list);
             precision = get_precision(format, &i, list);
             size = get_size(format, &i);
             ++i;
-            printed = handle_print(format, &i, list, buffer, flags,
-                                   width, precision, size);
-            if (printed == -1)
+            print = handle_print(format, &i, list, buffer,
+                                   f, width, precision, size);
+            if (print == -1)
                 return (-1);
-            printed_chars += printed;
+            print_c += print;
         }
     }
 
@@ -48,13 +49,13 @@ int _printf(const char *format, ...)
 
     va_end(list);
 
-    return (printed_chars);
+    return (print_c);
 }
 
 /**
  * print_buffer - Prints the contents of the buffer if it exist
- * @buffer: Array of  charactors
- * @buff_ind: Index at which to add next char, represents the length
+ * @buffer: Array of chars
+ * @buff_ind: Index at which to add next char, represents the length.
  */
 void print_buffer(char buffer[], int *buff_ind)
 {
