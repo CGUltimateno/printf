@@ -5,12 +5,13 @@ void print_buffer(char buffer[], int *buff_ind);
 /**
  * _printf - Printf function
  * @format: format.
- * Return: print chars.
+ * by Joseph and Ciny
+ * Return: Printed chars.
  */
 int _printf(const char *format, ...)
 {
-    int i, print = 0, print_c = 0;
-    int f, w, precision, size, buff_ind = 0;
+    int i, printed = 0, printed_chars = 0;
+    int flags, width, precision, size, buff_ind = 0;
     va_list list;
     char buffer[BUFF_SIZE];
 
@@ -27,21 +28,21 @@ int _printf(const char *format, ...)
             if (buff_ind == BUFF_SIZE)
                 print_buffer(buffer, &buff_ind);
             /* write(1, &format[i], 1);*/
-            print_c++;
+            printed_chars++;
         }
         else
         {
             print_buffer(buffer, &buff_ind);
-            f = get_flags(format, &i);
-            w = get_width(format, &i, list);
+            flags = get_flags(format, &i);
+            width = get_width(format, &i, list);
             precision = get_precision(format, &i, list);
             size = get_size(format, &i);
             ++i;
-            print = handle_print(format, &i, list, buffer,
-                                   f, w, precision, size);
-            if (print == -1)
+            printed = handle_print(format, &i, list, buffer,
+                                   flags, width, precision, size);
+            if (printed == -1)
                 return (-1);
-            print_c += print;
+            printed_chars += printed;
         }
     }
 
@@ -49,7 +50,7 @@ int _printf(const char *format, ...)
 
     va_end(list);
 
-    return (print_c);
+    return (printed_chars);
 }
 
 /**

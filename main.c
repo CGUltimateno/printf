@@ -4,6 +4,7 @@
 
 /**
  * main - Entry point
+ * by Joseph and Ciny
  *
  * Return: Always 0
  */
@@ -18,8 +19,8 @@ int main(void)
     length2 = printf("Let's try to printf a simple sentence.\n");
     ui = (unsigned int)INT_MAX + 1024;
     addr = (void *)0x7ffe637541f0;
-    _printf("lengthgth:[%d, %i]\n", length, length);
-    printf("lengthgth:[%d, %i]\n", length2, length2);
+    _printf("Length:[%d, %i]\n", length, length);
+    printf("Length:[%d, %i]\n", length2, length2);
     _printf("Negative:[%d]\n", -762534);
     printf("Negative:[%d]\n", -762534);
     _printf("Unsigned:[%u]\n", ui);
@@ -36,8 +37,8 @@ int main(void)
     printf("Address:[%p]\n", addr);
     length = _printf("Percent:[%%]\n");
     length2 = printf("Percent:[%%]\n");
-    _printf("length:[%d]\n", length);
-    printf("length:[%d]\n", length2);
+    _printf("Len:[%d]\n", length);
+    printf("Len:[%d]\n", length2);
     _printf("Unknown:[%r]\n");
     printf("Unknown:[%r]\n");
     return (0);

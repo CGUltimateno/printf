@@ -4,34 +4,35 @@
 
 /**
  * print_char - Prints a char
+ * by Joseph and Ciny
  * @types: List a of arguments
  * @buffer: Buffer array to handle print
- * @f:  Calculates active functions
- * @w: width
- * @p: precision specification
- * @s: size specifier
+ * @flags:  Calculates active flags
+ * @width: Width
+ * @precision: Precision specification
+ * @size: Size specifier
  * Return: Number of chars printed
  */
 int print_char(va_list types, char buffer[],
-               int f, int w, int p, int s)
+               int f, int w, int p, int size)
 {
     char c = va_arg(types, int);
 
-    return (handle_write_char(c, buffer, f, w, p, s));
+    return (handle_write_char(c, buffer, f, w, p, size));
 }
 /************************* PRINT A STRING *************************/
 /**
  * print_string - Prints a string
  * @types: List a of arguments
  * @buffer: Buffer array to handle print
- * @f:  Calculates active f
- * @w: get w.
- * @p: p specification
- * @s: s specifier
+ * @flags:  Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
  * Return: Number of chars printed
  */
 int print_string(va_list types, char buffer[],
-                 int f, int w, int p, int s)
+                 int f, int w, int p, int size)
 {
     int length = 0, i;
     char *str = va_arg(types, char *);
@@ -40,7 +41,7 @@ int print_string(va_list types, char buffer[],
     UNUSED(f);
     UNUSED(w);
     UNUSED(p);
-    UNUSED(s);
+    UNUSED(size);
     if (str == NULL)
     {
         str = "(null)";
@@ -79,21 +80,21 @@ int print_string(va_list types, char buffer[],
  * print_percent - Prints a percent sign
  * @types: Lista of arguments
  * @buffer: Buffer array to handle print
- * @f:  Calculates active f
- * @w: get w.
- * @p: p specification
- * @s: s specifier
+ * @flags:  Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
  * Return: Number of chars printed
  */
 int print_percent(va_list types, char buffer[],
-                  int f, int w, int p, int s)
+                  int f, int w, int p, int size)
 {
     UNUSED(types);
     UNUSED(buffer);
     UNUSED(f);
     UNUSED(w);
     UNUSED(p);
-    UNUSED(s);
+    UNUSED(size);
     return (write(1, "%%", 1));
 }
 
@@ -102,26 +103,26 @@ int print_percent(va_list types, char buffer[],
  * print_int - Print int
  * @types: Lista of arguments
  * @buffer: Buffer array to handle print
- * @f:  Calculates active f
- * @w: get w.
- * @p: p specification
- * @s: s specifier
+ * @flags:  Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
  * Return: Number of chars printed
  */
 int print_int(va_list types, char buffer[],
-              int f, int w, int p, int s)
+              int f, int w, int p, int size)
 {
-    int i = BUFF_s - 2;
+    int i = BUFF_SIZE - 2;
     int is_negative = 0;
     long int n = va_arg(types, long int);
     unsigned long int num;
 
-    n = convert_size_number(n, s);
+    n = convert_size_number(n, size);
 
     if (n == 0)
         buffer[i--] = '0';
 
-    buffer[BUFF_s - 1] = '\0';
+    buffer[BUFF_SIZE - 1] = '\0';
     num = (unsigned long int)n;
 
     if (n < 0)
@@ -138,7 +139,7 @@ int print_int(va_list types, char buffer[],
 
     i++;
 
-    return (write_number(is_negative, i, buffer, f, w, p, s));
+    return (write_number(is_negative, i, buffer, f, w, p, size));
 }
 
 /************************* PRINT BINARY *************************/
@@ -146,14 +147,14 @@ int print_int(va_list types, char buffer[],
  * print_binary - Prints an unsigned number
  * @types: Lista of arguments
  * @buffer: Buffer array to handle print
- * @f:  Calculates active f
- * @w: get w.
- * @p: p specification
- * @s: s specifier
+ * @flags:  Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
  * Return: Numbers of char printed.
  */
 int print_binary(va_list types, char buffer[],
-                 int f, int w, int p, int s)
+                 int f, int w, int p, int size)
 {
     unsigned int n, m, i, sum;
     unsigned int a[32];
@@ -163,7 +164,7 @@ int print_binary(va_list types, char buffer[],
     UNUSED(f);
     UNUSED(w);
     UNUSED(p);
-    UNUSED(s);
+    UNUSED(size);
 
     n = va_arg(types, unsigned int);
     m = 2147483648; /* (2 ^ 31) */
